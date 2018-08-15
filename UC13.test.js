@@ -12,7 +12,11 @@ describe('Testing UC13 UI, displaying all the puzzles on the main page', () => {
         expect(document.body.innerHTML).not.toBe('');
     });
 
-
+    test('Does the completed puzzles have the added class?', () => {
+        require('../allpuzzles');
+        var puzzle = document.querySelectorAll(".puzzle");
+        expect(puzzle.classList).toContain('completed');
+    });
 });
 
 
