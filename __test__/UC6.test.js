@@ -1,5 +1,8 @@
+jest.dontMock('./webConn');
+const webConn = require('./webConn');
+
 beforeAll((done) => {
-    getFromWeb('http://localhost/puzzles.html', function(inString) {
+    webConn.getFromWeb('http://localhost/puzzles.html', function(inString) {
         document.body.innerHTML = inString;
         done();
     });
@@ -59,7 +62,7 @@ describe('Testing UC6 UI, log out', () => {
         }
         confirmButtonElem.click();
 
-        getFromApi('http://localhost/usersAPI.php', function(jsonObj) {
+        webConn.getFromApi('http://localhost/usersAPI.php', function(jsonObj) {
             expect(jsonObj.params.user_id).toBe("");
             done();
         });
@@ -75,55 +78,10 @@ describe('Testing UC6 API, log out', () => {
             "params": "user_id"
         };
 
-        getFromApi('http://localhost/usersAPI.php', requestObj, function(jsonObj) {
+        webConn.getFromApi('http://localhost/usersAPI.php', requestObj, function(jsonObj) {
             console.log(jsonObj.puzzles.id);
             expect(jsonObj.params.user_id).not.toBe("");
             done();
         });
     });
 });
-
-jest.dontMock('http');
-const http = require('http');
-function getFromWeb(url, requestObj, callMeBack) {
-    http.post(url, function(response) {
-        let buffer = '';
-        response.on('data', function(piece) {
-            buffer += piece;
-        });
-        response.on('end', function() {
-            const jsonObj = JSON.parse(buffer);
-            callMeBack(jsonObj);
-        });
-    })
-};
-
-function getFromApi(method, url, requestString, callMeBack) {
-    if (method === "GET") {
-        getFromWeb(url, function(inString) {
-            var jsonObj = JSON.parse(inString);
-            callMeBack(jsonObj);
-        });
-    }
-    else {
-        var options = {
-            hostname: 'localhost',
-            port: 80,
-            path: url,
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', }
-        };
-        var request = http.request(url, function(response) {
-            let buffer = '';
-            response.setEncoding('utf8');
-            response.on('data', function(piece) {
-                buffer += piece;
-            });
-            response.on('end', function() {
-                callMeBack(buffer);
-            });
-        });
-        request.write(requestString);
-        request.end();
-    }
-};
