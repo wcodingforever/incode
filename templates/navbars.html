@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <title>Document</title>
+
+    <style>
+    /* * {outline: 1px solid red} */
+
+    #usermenu{
+        height: 200px;
+        width: 200px;
+        display: none;
+    }
+
+    #adminmenudiv{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 600px;
+        width: 100px;
+        display: none;
+    }
+
+    #usermenudiv {
+        /* display: none; */
+    }
+
+
+    @media screen and (max-width: 481px) {
+        #adminmenudiv{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            height: 50px;
+            width: 100%;
+            display: none;
+        }
+
+        #usermenudiv {
+        /* display: none; */
+        }
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="usermenudiv">
+            <div id="menubutton"><i class="fas fa-bars"></i></div>
+            <div id="usermenu">
+                <a href="editprofile.html"><div class="options">Edit Profile</div></a>
+                <a href="feedback.html"><div class="options" >Feedback</div></a>
+                <div class="options" >Log Out</div>
+            </div>
+        </div>
+
+        <div id="adminmenudiv">
+                <a href="allpuzzles.html"><div class="options">Puzzles</div></a>
+                <a href="users.html"><div class="options">Users</div></a>
+                <a href="allfeedback.html"><div class="options" > Feedback</div></a>
+                <div class="options" >Log Out</div>
+            </div>
+    </div>
+
+    <script>
+        var userMenuDiv = document.querySelector("#usermenudiv");
+        var admingMenuDiv = document.querySelector("#adminmenudiv");
+        var menuButton = document.querySelector("#menubutton");
+        var userMenu = document.querySelector("#usermenu");
+        // var user = <?php echo($username)?>
+
+
+//displaying the right menu if admin is logged. we might have to change the echo later when we have sessions
+        // if (user === "admin"){
+        //     userMenuDiv.style.display = "none";
+        //     admingMenuDiv.style.display = "block";
+        // }
+        // else {
+        //     userMenuDiv.style.display = "block"
+        // }
+
+//hamburger menu, works for now but might want to change displaying on width instead of none/block
+        menuButton.addEventListener("click", function(){
+            console.log("clicked")
+            if (userMenu.style.display === "block"){
+                userMenu.style.display = "none";
+            }
+            else {
+                userMenu.style.display = "block"
+            }
+        });
+    </script>
+</body>
+</html>
