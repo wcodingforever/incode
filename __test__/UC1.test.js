@@ -46,25 +46,31 @@ describe("Test for a API to remove a user", () => {
             }
         };
 
+        let proper_json = JSON.stringify(proper_jsonObj);
+
+        getFromApi( "POST", 'http://localhost/incode.wcoding.com/manageUsers.php' , proper_json, function(jsonObj) {
+            expect(jsonObj.status).toBe('OK');
+            done();
+        });
+        
+    });
+    
+
+    test("If the API can't get id data in a sent json, it defines an error and provides a message about it?" , (done) => {
         let wrong_jsonObj = {
             route: "remove_users",
             params: {
                 username: "juliet"
             }
         };
+        
+        let wrong_json = JSON.stringify(wrong_jsonObj);        
 
-        let proper_json = JSON.stringify(proper_jsonObj);
-        let wrong_json = JSON.stringify(wrong_jsonObj);
-
-        getFromApi('http://localhost/back/manageUsers.php/' + proper_json , function(jsonObj) {
-            expect(jsonObj.status).toBe('OK');
-            done();
-        });
-
-        getFromApi('http://localhost/back/manageUsers.php/' + wrong_json , function(jsonObj) {
+        getFromApi( "POST", 'http://localhost/incode.wcoding.com/manageUsers.php' , wrong_json, function(jsonObj) {
             expect(jsonObj.status).toBe('ERROR');
             expect(jsonObj.message).not.toBeDefined();
-
+            expect(jsonObj.message).not.toBe("");            
+        
             done();
         });
     });
@@ -87,12 +93,38 @@ function getFromWeb(url, callMeBack) {
     });
 }
 
-function getFromApi(url, callMeBack) {
-    getFromWeb(url, function(inString) {
-        var jsonObj = JSON.parse(inString);
-        callMeBack(jsonObj);
-    });
+
+function getFromApi(method, url, requestString, callMeBack) {
+    if (method === "GET") {
+        getFromWeb(url, function(inString) {
+            var jsonObj = JSON.parse(inString);
+            callMeBack(jsonObj);
+        });
+    }
+    else {
+        var options = {
+            hostname: 'localhost',
+            port: 80,
+            path: url,
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', }
+        };
+        var request = http.request(url, function(response) {
+            let buffer = '';
+            response.setEncoding('utf8');
+            response.on('data', function(piece) {
+                buffer += piece;
+            });
+            response.on('end', function() {
+                callMeBack(buffer);
+            });
+        });
+        request.write(requestString);
+        request.end();
+    }
 }
+
+
 
 
 
