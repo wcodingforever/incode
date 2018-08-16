@@ -1,5 +1,8 @@
+jest.dontMock('./webConn');
+const webConn = require('./webConn');
+
 beforeAll((done) => {
-    getFromWeb('http://localhost/puzzles.html', function(inString) {
+    webConn.getFromWeb('http://localhost/puzzles.html', function(inString) {
         document.body.innerHTML = inString;
         done();
     });
@@ -81,7 +84,7 @@ describe('Testing UC4 UI, Deleting puzzles', () => {
         }
         confirmButtonElem.click();
 
-        getFromApi('http://localhost/puzzlesAPI.php', function(jsonObj) {
+        webConn.getFromApi('http://localhost/puzzlesAPI.php', function(jsonObj) {
             expect(jsonObj.puzzle_id).toBe("1");
             done();
         });
@@ -97,33 +100,10 @@ describe('testing UC4 API', () => {
             "route": "get_puzzlelist"
         };
 
-        getFromApi('http://localhost/puzzlesAPI.php', requestObj, function(jsonObj) {
+        webConn.getFromApi('http://localhost/puzzlesAPI.php', requestObj, function(jsonObj) {
             console.log(jsonObj.puzzles.id);
             expect(jsonObj.puzzles.id).toEqual(["1", "2", "3"]);
             done();
         });
     });
 });
-
-
-jest.dontMock('http');
-const http = require('http');
-function getFromWeb(url, requestObj, callMeBack) {
-    http.post(url, function(response) {
-        let buffer = '';
-        response.on('data', function(piece) {
-            buffer += piece;
-        });
-        response.on('end', function() {
-            const jsonObj = JSON.parse(buffer);
-            callMeBack(jsonObj);
-        });
-    })
-};
-
-function getFromApi(url, callMeBack) {
-    getFromWeb(url, function(inString) {
-        var jsonObj = JSON.parse(inString);
-        callMeBack(jsonObj);
-    });
-};

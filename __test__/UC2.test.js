@@ -1,5 +1,8 @@
+jest.dontMock('./webConn');
+const webConn = require('./webConn');
+
 beforeAll((done) => {
-    getFromWeb('http://localhost/puzzles.html', function(inString) {
+    webConn.getFromWeb('http://localhost/puzzles.html', function(inString) {
         document.body.innerHTML = inString;
         done();
     });
@@ -36,12 +39,12 @@ describe('testing for UC2 UI, Adding new puzzles', () => {
         expect(addNewPuzzle).not.toBeNull();
     });
 
-    test('does the sumbit button send an obj to API?', () => {
+    test('does the sumbit button send an obj to API?', (done) => {
         var submitButtonElem = document.querySelector("#submitbutton");
         require('../newpuzzle');
         submitButtonElem.click();
 
-        getFromApi('http://localhost/puzzlesAPI.php', function(jsonObj) {
+        webConn.getFromApi('http://localhost/puzzlesAPI.php', function(jsonObj) {
             expect(jsonObj.params).toEqual({
                 "name": "puzzle1",
                 "level": "beginner",
@@ -57,45 +60,6 @@ describe('testing for UC2 UI, Adding new puzzles', () => {
                 ]
             });
             done();
-
+        });
     });
-
 });
-
-function getFromApi(url, callMeBack) {
-    getFromWeb(url, function(inString) {
-        var jsonObj = JSON.parse(inString);
-        callMeBack(jsonObj);
-    });
-};
-
-
-function getFromApi(method, url, requestString, callMeBack) {
-    if (method === "GET") {
-        getFromWeb(url, function(inString) {
-            var jsonObj = JSON.parse(inString);
-            callMeBack(jsonObj);
-        });
-    }
-    else {
-        var options = {
-            hostname: 'localhost',
-            port: 80,
-            path: url,
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', }
-        };
-        var request = http.request(url, function(response) {
-            let buffer = '';
-            response.setEncoding('utf8');
-            response.on('data', function(piece) {
-                buffer += piece;
-            });
-            response.on('end', function() {
-                callMeBack(buffer);
-            });
-        });
-        request.write(requestString);
-        request.end();
-    }
-}
