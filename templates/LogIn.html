@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LogIn</title>
+    <style>
+        .signup{
+            align-content: center;
+            bottom:0;
+        }
+        .inputs{
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            margin-top: auto;
+            height:250px;
+            
+        }
+
+        .loginbutton{
+            margin-left: auto;
+            margin-right: auto;
+            right:50%;
+            left:50%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <div class="signup">
+            <a id='signup'  href="#signup"> Don't have an account? Sign up! </a> <!--need href-->
+        </div>
+        
+        <div class='inputs' id='inputs'>
+            <input id="username" placeholder="Username">
+            <input id="password" placeholder="Password">
+            <!-- <input id="starpwd" style> -->
+        </div>
+        <button id="loginbutton" class='loginbutton' type="password" disabled >Log In</button>
+
+    </div>
+
+    <script>
+        var LoginButton=document.getElementById("loginbutton");
+        var Username=document.getElementById("username");
+        var Password=document.getElementById("password");
+        var inputs=document.getElementById("inputs")
+
+        inputs.addEventListener("change", function(){
+            if (Username.value==="" || Password.value===""){
+                LoginButton.disabled=true;
+            }
+            else if (Username.value!=="" && Password.value!==""){
+                LoginButton.disabled=false;
+            }
+        })
+        
+        // Password.addEventListener("change", function(){
+        //     var pwdlength=Password.value.length;
+        //     for (i=0; i<pwdlength; i++){
+        //         Password.innerHTML+= "*";
+        //     }
+        // })
+        
+        LoginButton.addEventListener("click", function(){
+            var httpx=new XMLHttpRequest;
+            xhttp.onreadystatechange=function(){
+                if (this.readyState == 4 && this.status == 200) {
+                    var userGood= JSON.parse(this.responseText);        //if user id exists responseText should say good
+                    if(userGood==="good"){
+                        console.log("success");   
+                        window.location.href="UserMainPage.html";                 
+                    }
+                    else{
+                        console.log("wrong username and/or password!");
+                    }
+                }
+            }
+            xhttp.open("POST","users.php");     //sends username and password. sends to users.php
+            var userData={
+                        username:Username.value,
+                        password:Password.value
+                    };
+            var sendData=JSON.stringify(userData);
+            xhttp.send(sendData);
+        });
+        
+    
+    </script>
+
+</body>
