@@ -31,10 +31,25 @@
         .navbar a{
             padding: 8px 8px 8px 32px;
             font-size: 15px;
+            font-family: "Verdana"; 
             display:block;
+            border-width: 5px;
+            border-color:powderblue;
+            
         }
 
-        
+        .indiPuzzle{
+            left: 450px;
+            background-color: grey;
+            text-align: center;
+            font-size:15px;
+
+        }
+
+        .frontpage{
+            left: 450px;
+        }
+                
 
         @media screen and (max-height: 450px) {
             .navbar {padding-top: 15px;}
@@ -46,7 +61,7 @@
 </head>
 <body>
     <div>
-        <div id="frontpage"> </div>
+        <div id="frontpage" class="frontpage"> </div>
         <div id='sideBar' class='navbar'>
             <a href="javscript:void(0)" class="closeNav" onclick="closeNav()"> &#x274C;</a>
             <a href="#puzzles.html" onclick="closeNav()">Puzzles</a>
@@ -65,16 +80,27 @@
         
 
         function openPuzzle() {
-            var xhttp=new XMLHttpRequest();
-            xhttp.onreadystatechange=function(){
+            var xhttp=new XMLHttpRequest();     //displayedNumber=number of puzzles. complete=correct, incorrect, new 
+            xhttp.onreadystatechange=function(){//name=name of puzzle. difficulty=1, 2, 3. date= date    
                 if (this.readyState == 4 && this.status == 200) {
                     var puzzles=JSON.parse(this.responseText);
                     puzzleNum=puzzles.displayedNumber;
                     for (i=0; i<puzzleNum; i++){
                         var thisPuzzle=puzzles[i];
-                        frontPage.innerHTML="<div id=puzzleClick> <div id='puzzleName'>"+thisPuzzle.name +"</div>"+
-                        "<div id='difficulty'>"+thisPuzzle.difficulty+"</div>"+
-                        "<div id='date'>"+thisPuzzle.date+"</div></div>";
+                        var puzzleComplete=puzzles[i].complete;
+                        if (puzzleComplete==='correct'){
+                            document.getElementById('puzzleClick').style.backgroundColor='green';
+                        }
+                        else if(puzzleComplete==='incorrect'){
+                            document.getElementById('puzzleClick').style.backgroundColor='yellow';
+                        }
+                        else if(puzzleComplete==='new'){
+                            document.getElementById('puzzleClick').style.backgroundColor='grey';
+                        }
+                        frontPage.innerHTML="<div id=puzzleClick class='indiPuzzle'> <div id='puzzleName'>"+puzzles[i].name +"</div>"+
+                        "<div id='difficulty'>"+puzzles[i].difficulty+"</div>"+
+                        "<div id='date'>"+puzzles[i].date+"</div></div>";
+                        
                     }
                 }
             }
