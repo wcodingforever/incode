@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .navbar{
+            height:100%;
+            width:0;
+            position:fixed;
+            z-index: 1;
+            top:0;
+            left:0;
+            overflow-x: hidden;
+            padding-top: 60px;
+            transition: 300ms;
+            background: grey;
+        }
+
+        .navibar{
+            top:0;
+            border-radius: 5px 5px 5px 5px;
+            border: 2px solid black;
+            padding-left: 30px;
+            text-align: center;
+
+        }
+
+        .navbar a{
+            padding: 8px 8px 8px 32px;
+            font-size: 15px;
+            font-family: "Verdana"; 
+            display:block;
+            border-width: 5px;
+            border-color:powderblue;
+            
+        }
+
+        .indiPuzzle{
+            left: 450px;
+            background-color: grey;
+            text-align: center;
+            font-size:15px;
+
+        }
+
+        .frontpage{
+            left: 450px;
+        }
+                
+
+        @media screen and (max-height: 450px) {
+            .navbar {padding-top: 15px;}
+            .navbar a {font-size: 18px;}
+        }
+    
+    </style>
+
+</head>
+<body>
+    <div>
+        <div id="frontpage" class="frontpage"> </div>
+        <div id='sideBar' class='navbar'>
+            <a href="javscript:void(0)" class="closeNav" onclick="closeNav()"> &#x274C;</a>
+            <a href="#puzzles.html" onclick="closeNav()">Puzzles</a>
+            <a href="#feedback" onclick="closeNav()">Feedback</a>
+            <a href="#edit" onclick="closeNav()">Edit Profile</a>
+            <a href="#logout.php" onclick="return confirm('Are you sure you want to logout?')">Log Out</a>
+        </div>
+
+        <span class='navibar'onclick="openNav()">Open Nav</span>
+
+    </div>
+
+    <script>
+        var logOut= document.getElementById("logout");
+        var frontPage=document.getElementById('frontpage');
+        
+
+        function openPuzzle() {
+            var xhttp=new XMLHttpRequest();     //displayedNumber=number of puzzles. complete=correct, incorrect, new 
+            xhttp.onreadystatechange=function(){//name=name of puzzle. difficulty=1, 2, 3. date= date    
+                if (this.readyState == 4 && this.status == 200) {
+                    var puzzles=JSON.parse(this.responseText);
+                    puzzleNum=puzzles.displayedNumber;
+                    for (i=0; i<puzzleNum; i++){
+                        var thisPuzzle=puzzles[i];
+                        var puzzleComplete=puzzles[i].complete;
+                        if (puzzleComplete==='correct'){
+                            document.getElementById('puzzleClick').style.backgroundColor='green';
+                        }
+                        else if(puzzleComplete==='incorrect'){
+                            document.getElementById('puzzleClick').style.backgroundColor='yellow';
+                        }
+                        else if(puzzleComplete==='new'){
+                            document.getElementById('puzzleClick').style.backgroundColor='grey';
+                        }
+                        frontPage.innerHTML="<div id=puzzleClick class='indiPuzzle'> <div id='puzzleName'>"+puzzles[i].name +"</div>"+
+                        "<div id='difficulty'>"+puzzles[i].difficulty+"</div>"+
+                        "<div id='date'>"+puzzles[i].date+"</div></div>";
+                        
+                    }
+                }
+            }
+            xhttp.open("POST", '../puzzle.php') //puzzle.php
+                var yayPuzzles={
+                    puzzle_id:puzzles.id
+                };
+                var sendPuzzle=JSON.stringify(yayPuzzles);
+                xhttp.send(sendPuzzle);
+        }
+        // if(navOpen===1){
+        //     window.onclick=function(){
+        //         navi.style.display='none';
+        //     }
+        // }  
+        var shownPuzzle=document.getElementById("puzzleClick"); //opens each puzzle
+
+        // shownPuzzle.addEventListener("click", function(){
+        //     var xhttp=new XMLHttpRequest();
+        //     xhttp.onreadystatechange= function(){
+        //         if (this.readyState == 4 && this.status == 200) {
+                    
+        //         }    
+        //     }
+        // });
+
+
+        function openNav() {
+            document.getElementById("sideBar").style.width ="250px";
+        }
+
+        function closeNav(){
+            document.getElementById('sideBar').style.width ="0";
+        }
+        
+
+        logOut.addEventListener("click",function(){
+            var xhttp=new XMLHttpRequest();
+            xhttp.onreadystatechange= function(){
+                if (this.readyState == 4 && this.status == 200) {
+                    
+                }    
+            }
+        })
+
+    
+    </script>
+</body>
