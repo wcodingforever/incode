@@ -10,26 +10,25 @@
 <body>
     <div>
         <form>
-            <input placeholder="Title" id="title">
-            <input id="datefrom" placeholder="From" type="text" onfocus="(this.type='date')"> 
-            <input id="dateto" placeholder="To" type="text" onfocus="(this.type='date')">
+            <input placeholder="Title" id="title" class="field">
+            <input id="datefrom" placeholder="From" type="text" onfocus="(this.type='date')" class="field"> 
+            <input id="dateto" placeholder="To" type="text" onfocus="(this.type='date')" class="field">
             <select id="level">
-                <option>level</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                <option>Easy</option>
+                <option>Normal</option>
+                <option>Hard</option>
             </select>
-            <textarea placeholder="Description" id="description"></textarea>
-            <textarea placeholder="Dataset" id="dataset1" class="dataset"></textarea>
-            <input placeholder="Answer" id="answer1" class="answer">
-            <textarea placeholder="Dataset" id="dataset2" class="dataset"></textarea>
-            <input placeholder="Answer" id="answer2" class="answer">
-            <textarea placeholder="Dataset" id="dataset3" class="dataset" ></textarea>
-            <input placeholder="Answer" id="answer3" class="answer">
-            <textarea placeholder="Dataset" id="dataset4" class="dataset"></textarea>
-            <input placeholder="Answer" id="answer4" class="answer" >
-            <textarea placeholder="Dataset" id="dataset5" class="dataset" ></textarea>
-            <input placeholder="Answer" id="answer5" class="answer">
+            <textarea placeholder="Description" id="description" class="field" type="number"></textarea>
+            <textarea placeholder="Dataset" id="dataset1" class="field"></textarea>
+            <input placeholder="Answer" id="answer1" class="field" type="number">
+            <textarea placeholder="Dataset" id="dataset2" class="field"></textarea>
+            <input placeholder="Answer" id="answer2" class="field" type="number">
+            <textarea placeholder="Dataset" id="dataset3" class="field" ></textarea>
+            <input placeholder="Answer" id="answer3" class="field" type="number">
+            <textarea placeholder="Dataset" id="dataset4" class="field"></textarea>
+            <input placeholder="Answer" id="answer4" class="field" type="number">
+            <textarea placeholder="Dataset" id="dataset5"class="field" ></textarea>
+            <input placeholder="Answer" id="answer5" class="field" type="number">
             <button id="submitbutton" type="button">Submit</button>
         </form>
     </div>

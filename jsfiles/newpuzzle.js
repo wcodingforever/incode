@@ -1,5 +1,4 @@
 var submitButton = document.querySelector("#submitbutton");
-submitButton.disabled = true;
 var title = document.querySelector("#title");
 var dateFrom = document.querySelector("#datefrom");
 var dateTo = document.querySelector("#dateto");
@@ -15,43 +14,38 @@ var dataset4 = document.querySelector("#dataset4");
 var answer4 = document.querySelector("#answer4");
 var dataset5 = document.querySelector("#dataset5");
 var answer5 = document.querySelector("#answer5");
-var datasets = document.querySelectorAll(".datatset");
-var answers = document.querySelectorAll(".answer");
-var allInputs = document.querySelectorAll("input");
+var allFields = document.querySelectorAll(".field");
 var titleCheck = false;
+submitButton.disabled = true;
 
-console.log(allInputs);
-var inputCheck = allInputs.includes("");//doesnt work because its an array or elements and not values
-for(var i = 0; i < allInputs.length; i++){
-    // console.log("each input");
-    let thisInput = allInputs[i];
-    thisInput.addEventListener("change", function(){
-        // console.log("got here", thisInput.value)
-        // checkArray();
-        if (inputCheck = false){
-            submitButton.disabled = false
-        }
-    })
+
+// console.log(allFields);
+for(var i = 0; i < allFields.length; i++){
+    let thisField = allFields[i];
+    thisField.addEventListener("input", checkallFields);
 }
 
+function checkallFields() {
+    var oneFieldIsBlank = false;
 
+    // Search for an input with an empty value.
+    for(var j = 0; j < allFields.length; j++){
+        let fieldElem = allFields[j];
+        if(fieldElem.value === ""){
+            oneFieldIsBlank = true;
+            break;
+        }
+    }
 
-// function checkArray(){
-//     for(var i = 0; i < allInputs.length; i++){
-//         console.log("here")
-//         let thisInput = allInputs[i];
-//         if(thisInput !== ""){
-//            submitButton.disabled = false;
-//         //    console.log("true")
-//         }
-//         else {
-//             console.log("false")
-//             submitButton.disabled = true;
-//         }
+    // If any empty value inputs are found, disable the submit button.
+    if (oneFieldIsBlank) {
+        submitButton.disabled = true;
+    }
+    else {
+        submitButton.disabled = false;
+    }
+};
 
-//     }
-
-//  }
 
 title.addEventListener("change", function(){
     var xhttp = new XMLHttpRequest();
