@@ -1,6 +1,7 @@
 .notValid{
     border: solid 1px red;
 }
+
 .vaild{
     background-color: rgba(183, 250, 183, 0.871);
 }
@@ -8,3 +9,21 @@
 .reportUnvalid{
     color: red;
 }
+
+.field{
+    display: flex;
+    margin: 43px 0px;
+}
+
+#signUp_form{
+    text-align: center;
+    margin: 50px auto;
+    width: 850px;
+    border: solid 1px black;
+}
+#signup_button{
+    position: relative;
+    top: -10px;
+    left: 877px;
+}
+

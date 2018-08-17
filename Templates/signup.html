@@ -6,6 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Sign up</title>
 <link rel="stylesheet" type="text/css" href="./signup.css"> 
+<style>
+
+
+</style>
 </head>
 <body>
     <!-- 
@@ -21,12 +25,13 @@
             <div id="report_unvalidUsername" class="reportUnvalid"></div>
         </div>
         <div class="field">
-            <div class="f_name">Password<span style="color:red">*</span></div><input type="password" name="pw" placeholder="At least 8 character including at least 1 number.">
-            <div id="report_unvalidPW" class="reportUnvalid"></div>
-        </div>
-        <div class="field">
-            <input type="password" name="pw_confirm"/>   
-            <div id="report_failurePWConfirm" class="reportUnvalid"></div>             
+            <div class="f_name">Password<span style="color:red">*</span></div>
+            <div id="pwBox">
+                <input type="password" name="pw" placeholder="At least 8 character including at least 1 number.">
+                <div id="report_unvalidPW" class="reportUnvalid"></div>
+                <input type="password" name="pw_confirm"/>   
+                <div id="report_failurePWConfirm" class="reportUnvalid"></div> 
+            </div>           
         </div>
         <div class="field">
             <div class="f_name">Email<span style="color:red">*</span></div><input type="email" name="email" placeholder="yourname@email.com"/>

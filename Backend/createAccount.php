@@ -5,7 +5,6 @@
 $json = file_get_contents("php://input"); 
 $userDataObj = json_decode($json)->params;
 
-
 //Chk if all nessecary datas were sent
 $response = "OK";
 
@@ -20,7 +19,7 @@ if($userDataObj->username !== "" && $userDataObj->password !== "" && $userDataOb
 
         $connection = new PDO("mysql:host=$servername;dbname=$dbname;", $username, $password);
 
-        $query = "INSET INTO `users` (`username`, `password`, `email`, `birth`, `gender`, `country`) " .
+        $query = "INSERT INTO `users` (`username`, `password`, `email`, `birth`, `gender`, `country`) " .
         "VALUES ( :username, :password, :email, :birth, :gender, :country)";
 
         $stmt = $connection->prepare($query);

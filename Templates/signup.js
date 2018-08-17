@@ -116,11 +116,11 @@ function sendUserDataForSignup(){
     const country_select = signup_form.querySelector("#country_select");
 
     if(username !== "" && email !== "" && birth !== ""){
-        let gender = gender_select.options[gender_select.selectedIndex];  
+        let gender = gender_select.options[gender_select.selectedIndex].value;  
         if(gender === "no value"){
             gender = null;
         } 
-        let country = country_select.options[country_select.selectedIndex];
+        let country = country_select.options[country_select.selectedIndex].value;
         if(country === "no value"){
             country = null;
         }
@@ -143,9 +143,10 @@ function sendUserDataForSignup(){
 
             if(this.readyState === 4 && this.status === 200){
 
-                console.log(xhr.responseText);
                 if(xhr.responseText !== "OK") {
-                    console.log(xhr.reponseText);
+                    console.log(xhr.responseText);
+                }else if(xhr.responseText === "OK"){
+                    // window.location = "http://incode.wcoding.com/login.html";
                 }
             }
         }
