@@ -2,6 +2,8 @@
 
 <?php
 
+require("../setup.php");
+
 $json = file_get_contents("php://input"); 
 $userDataObj = json_decode($json)->params;
 
@@ -9,15 +11,8 @@ $userDataObj = json_decode($json)->params;
 $response = "OK";
 
 if($userDataObj->username !== "" && $userDataObj->password !== "" && $userDataObj->birth !== ""){
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "incode";
     
     try{
-
-        $connection = new PDO("mysql:host=$servername;dbname=$dbname;", $username, $password);
 
         $query = "INSERT INTO `users` (`username`, `password`, `email`, `birth`, `gender`, `country`) " .
         "VALUES ( :username, :password, :email, :birth, :gender, :country)";
