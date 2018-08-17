@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Sign up</title>
+<link rel="stylesheet" type="text/css" href="./signup.css"> 
 </head>
 <body>
     <!-- 
@@ -20,11 +21,11 @@
             <div id="report_unvalidUsername" class="reportUnvalid"></div>
         </div>
         <div class="field">
-            <div class="f_name">Password<span style="color:red">*</span></div><input type="password" name="password" placeholder="At least 8 character including at least 1 number.">
+            <div class="f_name">Password<span style="color:red">*</span></div><input type="password" name="pw" placeholder="At least 8 character including at least 1 number.">
             <div id="report_unvalidPW" class="reportUnvalid"></div>
         </div>
         <div class="field">
-            <input type="password" name="password_confirm"/>   
+            <input type="password" name="pw_confirm"/>   
             <div id="report_failurePWConfirm" class="reportUnvalid"></div>             
         </div>
         <div class="field">
@@ -37,7 +38,7 @@
         <div class="field">
             <div class="f_name">gender</div>
             <select id="gender_select">
-                <option value="no value">Gender</option>
+                <option value="no value">Select</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="others">Others</option>            
@@ -46,7 +47,7 @@
         <div class="field">
             <div class="f_name">Country</div>
             <select id="country_select">
-                <option value="no value">Country</option>
+                <option value="no value">Select</option>
             </select>
         </div>
     </form>

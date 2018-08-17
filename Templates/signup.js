@@ -1,7 +1,4 @@
 const signup_form = document.body.querySelector("#signUp_form");
-const signup_button = document.body.querySelector("#signup_button");
-
-signup_button.addEventListener("click", sendUserDataForSignup);
 
 //In UC7 doc, 
 //Alternate flow..
@@ -11,19 +8,22 @@ signup_button.addEventListener("click", sendUserDataForSignup);
 //=> When a user entered an invalid input, the input'll be highlighted. And the error message'll appear below.
 
 const username_input = signup_form.querySelector("input[name=username]");
-username_input.addEventListener("blure", chk_validation("username"));
-const pw_input = signup_form.querySelector("input[name=password]");
-pw_input.addEventListener("blure", chk_validation("pw"));
-const pw_confirm_input = signup_form.querySelector("input[name=password_confirm]"); 
-pw_confirm_input.addEventListener("blure", chk_validation("pw_confirm"));
-const email_input = signup_form.quersySelector("input[name=email]");
-email_input.addEventListener("blure", chk_validation("email"));
+username_input.onblur = (e) => chk_validation(e);
+const pw_input = signup_form.querySelector("input[name=pw]");
+pw_input.onblur = (e) => chk_validation(e);
+const pw_confirm_input = signup_form.querySelector("input[name=pw_confirm]"); 
+pw_confirm_input.onblur = (e) => chk_validation(e);
+const email_input = signup_form.querySelector("input[name=email]");
+email_input.onblur = (e) => chk_validation(e);
 
 var pw;
-function chk_validation( elem_name, elem){
+function chk_validation(e){
 
-    let inputValue = elem.value;
+    let inputValue = e.target.value;
+    let elem = e.target;
+    let elem_name = e.target.name;
 
+    console.log("Here");
     //Validation check
 
     //1. username
@@ -52,14 +52,15 @@ function chk_validation( elem_name, elem){
         }
 
     }else if(elem_name === "pw"){
-        let chars = pw.split("");
+        let chars = pw_input.value.split("");
         let includeNum = false;
-        chars.forEach((char) => {
-            if(char ==! NaN){
+        for( let i = 0; i < chars.length; i++){
+            let char = chars[i];
+            if(char !== NaN){
                 includeNum = true;
                 break;
             } 
-        });
+        };
         if(inputValue.length < 8 || includeNum === false){
             let report_unvalidPW = signup_form.querySelector("#report_unvalidPW");            
             elem.classList.add("notValid"); 
@@ -100,48 +101,58 @@ function chk_validation( elem_name, elem){
     }
 
 }
- 
+
+const signup_button = document.body.querySelector("#signup_button");
+signup_button.addEventListener("click", sendUserDataForSignup);
 
 
 function sendUserDataForSignup(){
 
+    let username = username_input.value;
+    let email = email_input.value;
+    let birth = signup_form.querySelector("input[name=birth]").value;
     //Password passed through validation chk'll be stored in 'pw' var outside the function. 
     const gender_select = signup_form.querySelector("#gender_select");
     const country_select = signup_form.querySelector("#country_select");
 
-    let gender = gender_select.options[gender_select.selectedIndex];  
-    if(gender === "no value"){
-        gender = null;
-    } 
-    let country = country_select.options[country_select.selectedIndex];
-    if(country === "no value"){
-        country = null;
-    }
-
-    let obj = {
-        route: "sign_up",
-        params:{
-            username: username_input.value,
-            password: pw,
-            email: email_input.value,
-            birth: signup_form.querySelector("input[name=birth]").value,
-            gender: gender,
-            country: country
+    if(username !== "" && email !== "" && birth !== ""){
+        let gender = gender_select.options[gender_select.selectedIndex];  
+        if(gender === "no value"){
+            gender = null;
+        } 
+        let country = country_select.options[country_select.selectedIndex];
+        if(country === "no value"){
+            country = null;
         }
-    }
-    let json = JSON.stringify(obj);
 
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-
-        if(this.readyState === 4 && this.status === 200){
-
-            if(xhr.responseText !== "OK") {
-                console.log(xhr.reponseText);
+        let obj = {
+            route: "sign_up",
+            params:{
+                username: username,
+                password: pw,
+                email: email_input.value,
+                birth: birth,
+                gender: gender,
+                country: country
             }
         }
-    }
-    xhr.open("POST", "../Backend/createAccount.php", true);
-    xhr.send(json); 
+        let json = JSON.stringify(obj);
+
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+
+            if(this.readyState === 4 && this.status === 200){
+
+                console.log(xhr.responseText);
+                if(xhr.responseText !== "OK") {
+                    console.log(xhr.reponseText);
+                }
+            }
+        }
+        xhr.open("POST", "../Backend/createAccount.php", true);
+        xhr.send(json);
+    }else{
+        alert("Please enter all nessecary fileds.");
+    } 
      
 }

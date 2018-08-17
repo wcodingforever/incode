@@ -3,7 +3,8 @@
 <?php
 
 $json = file_get_contents("php://input"); 
-$userDataObj = json_decode($json);
+$userDataObj = json_decode($json)->params;
+
 
 //Chk if all nessecary datas were sent
 $response = "OK";
@@ -23,14 +24,17 @@ if($userDataObj->username !== "" && $userDataObj->password !== "" && $userDataOb
         "VALUES ( :username, :password, :email, :birth, :gender, :country)";
 
         $stmt = $connection->prepare($query);
-        $stmt->bindParam(":username", $username);
-        $stmt->bindParam(":password", $password);
-        $stmt->bindParam(":email", $email);
-        $stmt->bindParam(":birth", $birth);
-        bindParam(":gender", $gender, $stmt);
-        bindParam(":country", $country, $stmt);
+        $stmt->bindParam(":username", $userDataObj->username);
+        $stmt->bindParam(":password", $userDataObj->password);
+        $stmt->bindParam(":email", $userDataObj->email);
+        $stmt->bindParam(":birth", $userDataObj->birth);
+        bindNull(":gender", $userDataObj->gender, $stmt);
+        bindNull(":country", $userDataObj->country, $stmt);
 
         $stmt->execute();
+
+        $connection = null;
+        $stmt = null;
 
     }catch(PDOException $e){
 
