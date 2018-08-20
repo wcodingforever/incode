@@ -54,6 +54,7 @@ else {
     $response = "Missing required data.";
 }
 
+// Change the response string into a JSON object for the UI, per API documents.
 if ($response === "OK") {
     $respObj['status'] = "OK";
 }
