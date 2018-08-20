@@ -22,20 +22,20 @@
     <form id="signUp_form">
         <div class="field">
             <div class="f_name">Username<span style="color:red">*</span></div><input type="text" name="username" placeholder="3 ~ 15 characters"/>
-            <div id="report_unvalidUsername" class="reportUnvalid"></div>
+            <div id="report_invalidUsername" class="reportInvalid"></div>
         </div>
         <div class="field">
             <div class="f_name">Password<span style="color:red">*</span></div>
             <div id="pwBox">
                 <input type="password" name="pw" placeholder="At least 8 character including at least 1 number.">
-                <div id="report_unvalidPW" class="reportUnvalid"></div>
+                <div id="report_invalidPW" class="reportInvalid"></div>
                 <input type="password" name="pw_confirm"/>   
-                <div id="report_failurePWConfirm" class="reportUnvalid"></div> 
+                <div id="report_failurePWConfirm" class="reportInvalid"></div> 
             </div>           
         </div>
         <div class="field">
             <div class="f_name">Email<span style="color:red">*</span></div><input type="email" name="email" placeholder="yourname@email.com"/>
-            <div id="report_unvalidEmail" class="reportUnvalid"></div>            
+            <div id="report_invalidEmail" class="reportInvalid"></div>            
         </div>
         <div class="field">
             <div class="f_name">Birth<span style="color:red">*</span></div><input type="date" name="birth"/> 
@@ -43,7 +43,7 @@
         <div class="field">
             <div class="f_name">gender</div>
             <select id="gender_select">
-                <option value="no value">Select</option>
+                <option value="">Select</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="others">Others</option>            
@@ -52,12 +52,12 @@
         <div class="field">
             <div class="f_name">Country</div>
             <select id="country_select">
-                <option value="no value">Select</option>
+                <option value="">Select</option>
             </select>
         </div>
     </form>
     <button id="signup_button">Sign up</button>
-<script src="./signup.js">
-</script>    
+<script src="js/signup.js">
+</script>
 </body>
 </html>

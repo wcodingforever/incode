@@ -14,7 +14,6 @@ CREATE TABLE `datesets`(
     `answers` INT(11) NOT NULL
 );
 
-
 CREATE TABLE `users`(
     `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `username` VARCHAR(15) NOT NULL,
@@ -25,7 +24,8 @@ CREATE TABLE `users`(
     `country` VARCHAR(100),
     `admin` INT(1) DEFAULT 0 NOT NULL,
     `activation` INT(1) DEFAULT 1 NOT NULL,
-    `last_login` TIMESTAMP DEFAULT NOW() NOT NULL
+    `last_login` TIMESTAMP DEFAULT NOW() NOT NULL,
+    CONSTRAINT username_uniq UNIQUE (username)
 );
 
 CREATE TABLE `feedback`(
