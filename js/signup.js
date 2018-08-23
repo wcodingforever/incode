@@ -7,28 +7,18 @@ var signup_form = document.body.querySelector("#signUp_form");
 
 //=> When a user entered an invalid input, the input'll be highlighted. And the error message'll appear below.
 
-// TODO: Please change all the event attributes to addEventListener.
+
 var username_input = signup_form.querySelector("input[name=username]");
-username_input.onblur = (e) => chk_validation(e);
-
-// username_input.onblur = function() { console.log("BLUR!"); };
-// username_input.onchange = function() { console.log("CHANGE!"); };
-// username_input.oninput = function() { console.log("INPUT!"); };
-
-// username_input.addEventListener("change", function() { console.log("CHANGE1"); });
-// username_input.addEventListener("change", function() { console.log("CHANGE2"); });
-// username_input.addEventListener("change", chk_validation);
-// username_input.onchange = function() { console.log("change1"); }
-// username_input.onchange = function() { console.log("change2"); }
-
 var pw_input = signup_form.querySelector("input[name=pw]");
-pw_input.onblur = (e) => chk_validation(e);
-
 var pw_confirm_input = signup_form.querySelector("input[name=pw_confirm]"); 
-pw_confirm_input.onblur = (e) => chk_validation(e);
-
 var email_input = signup_form.querySelector("input[name=email]");
-email_input.onblur = (e) => chk_validation(e);
+
+
+username_input.addEventListener( "change", chk_validation);
+pw_input.addEventListener( "change", chk_validation);
+pw_confirm_input.addEventListener( "change", chk_validation);
+email_input.addEventListener( "change", chk_validation);
+
 
 
 function chk_validation(e) {
@@ -37,7 +27,6 @@ function chk_validation(e) {
     var elem_name = e.target.name;
     var inputValue = e.target.value;
 
-    // console.log("Here");
     //Validation check
 
     //1. username
@@ -152,7 +141,7 @@ function sendUserDataForSignup() {
                     }
                     else {
                         // Redirect to next page.
-                        // window.location = "http://incode.wcoding.com/login.html";
+                        window.location = "localhost/../login.html";
                     }
                 }
                 else {
