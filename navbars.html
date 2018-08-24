@@ -1,98 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <title>Document</title>
 
-    <style>
-    /* * {outline: 1px solid red} */
+    <!-- //////////If a user didn't log into the web page yet, this header'll be used.////////////////////////////////////////////////-->
+    <div id="header_beforeLogIn"><span id="loginLink">LogIn</span></div>
 
-    #usermenu{
-        height: 200px;
-        width: 200px;
-        display: none;
-    }
+    
 
-    #adminmenudiv{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        height: 600px;
-        width: 100px;
-        display: none;
-    }
+    <!-- //////////If a user logged into the web page, appropriate menus among these menus'll be used.////////////////////////////////-->
 
-    #usermenudiv {
-        /* display: none; */
-    }
-
-
-    @media screen and (max-width: 481px) {
-        #adminmenudiv{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            height: 50px;
-            width: 100%;
-            display: none;
-        }
-
-        #usermenudiv {
-        /* display: none; */
-        }
-    }
-    </style>
-</head>
-<body>
-    <div>
-        <div id="usermenudiv">
-            <div id="menubutton"><i class="fas fa-bars"></i></div>
-            <div id="usermenu">
-                <a href="editprofile.html"><div class="options">Edit Profile</div></a>
-                <a href="feedback.html"><div class="options" >Feedback</div></a>
-                <div class="options" >Log Out</div>
-            </div>
-        </div>
-
-        <div id="adminmenudiv">
-                <a href="allpuzzles.html"><div class="options">Puzzles</div></a>
-                <a href="users.html"><div class="options">Users</div></a>
-                <a href="allfeedback.html"><div class="options" > Feedback</div></a>
-                <div class="options" >Log Out</div>
-            </div>
+    <!-- 1. Main menu For admins-->
+    <div id="mainMenu_for_admin">
+        <div id="puzzles_button_for_admin">Puzzles</div>
+        <div id="users_button_for_admin">Users</div>
+        <div id="feedbacks_button_for_admin">Feedbacks</div>        
     </div>
 
-    <script>
-        var userMenuDiv = document.querySelector("#usermenudiv");
-        var admingMenuDiv = document.querySelector("#adminmenudiv");
-        var menuButton = document.querySelector("#menubutton");
-        var userMenu = document.querySelector("#usermenu");
-        // var user = <?php echo($username)?>
 
+    <!-- 2. Main menu for users -->
+    <div id="mainMenu_for_users">
+            <div id="puzzles_button_for_users">Puzzles</div>
+            <div id="users_button_for_users">Users</div>
+            <div id="feedbacks_button_for_users">Feedbacks</div>        
+    </div>
+    
 
-//displaying the right menu if admin is logged. we might have to change the echo later when we have sessions
-        // if (user === "admin"){
-        //     userMenuDiv.style.display = "none";
-        //     admingMenuDiv.style.display = "block";
-        // }
-        // else {
-        //     userMenuDiv.style.display = "block"
-        // }
+    <!-- ////////////Hamberger menu for users and admins////////////////////////////////////////////////////////////////////////////////-->
+    <!-- The same hamberger menu'll be used for both users and for admins -->
+    
+    <!-- Hamberger icon -->
+    <div id="hamberger">
+        <div></div>   
+        <div></div>   
+    </div>
 
-//hamburger menu, works for now but might want to change displaying on width instead of none/block
-        menuButton.addEventListener("click", function(){
-            console.log("clicked")
-            if (userMenu.style.display === "block"){
-                userMenu.style.display = "none";
-            }
-            else {
-                userMenu.style.display = "block"
-            }
-        });
-    </script>
-</body>
-</html>
+    <!-- Hamberger menu -->
+    <!-- If a user clicks on the hamberger icon, this menu(hambergerMenu)'ll appear. -->
+    <!-- If session has a user's data( = a user logged in), 
+        this hamberger menu'll include menus; Edit profile, Feedbacks, Log out. -->
+    <div id="hambergerMenu">
+        No account <br>
+        Please log in first.
+    </div>
